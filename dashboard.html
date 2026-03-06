@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arquentix Executive Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 0.25rem;
+    }
+    .subtitle {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #64748b;
+      margin-bottom: 0.75rem;
+    }
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      background: #1e2130;
+      border: 1px solid #2d3148;
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+    }
+    .kpi-label {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .kpi-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    .kpi-value.green { color: #34d399; }
+    .kpi-value.purple { color: #a78bfa; }
+
+    /* Two-col layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* Tables */
+    .card {
+      background: #1e2130;
+      border: 1px solid #2d3148;
+      border-radius: 10px;
+      padding: 1.2rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th {
+      text-align: left;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      padding: 0 0 0.5rem 0;
+      border-bottom: 1px solid #2d3148;
+    }
+    td {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #1a1f2e;
+      color: #cbd5e1;
+    }
+    tr:last-child td { border-bottom: none; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.won { color: #34d399; font-weight: 600; }
+
+    /* Chart */
+    .chart-wrap { margin-top: 0.5rem; }
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.35rem;
+      font-size: 0.75rem;
+    }
+    .chart-label { width: 55px; color: #64748b; flex-shrink: 0; }
+    .bar-track { flex: 1; background: #2d3148; border-radius: 4px; height: 10px; overflow: hidden; }
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: #a78bfa;
+      transition: width 0.4s ease;
+    }
+    .bar-fill.green { background: #34d399; }
+    .chart-val { width: 60px; text-align: right; color: #94a3b8; flex-shrink: 0; }
+
+    footer { margin-top: 2rem; font-size: 0.72rem; color: #334155; text-align: right; }
+  </style>
+</head>
+<body>
+
+<h1>Arquentix Executive Dashboard</h1>
+<p class="subtitle">Arquentix_Financial_Operating_System_2026 &nbsp;·&nbsp; As of 2026-03-06 (YTD)</p>
+
+<!-- KPI Cards -->
+<div class="section-title">Key Metrics — YTD</div>
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Cash Received</div>
+    <div class="kpi-value green">$4,000</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Invoiced Revenue</div>
+    <div class="kpi-value">$4,000</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Net Profit (Cash)</div>
+    <div class="kpi-value green">$4,000</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Deductible Expenses</div>
+    <div class="kpi-value">$0</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Billable Hours</div>
+    <div class="kpi-value purple">10.50</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Effective Rate (Cash)</div>
+    <div class="kpi-value purple">$380.95</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Accounts Receivable</div>
+    <div class="kpi-value">$0</div>
+  </div>
+</div>
+
+<div class="two-col">
+
+  <!-- Bucket Burn-down -->
+  <div class="card">
+    <div class="section-title">Bucket Burn-down</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Contract</th>
+          <th>Client</th>
+          <th class="num">Hrs Used</th>
+          <th class="num">Hrs Left</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ARQ-STA-2026-001</td>
+          <td>Statusphere</td>
+          <td class="num">10.50</td>
+          <td class="num">0.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pipeline Snapshot -->
+  <div class="card">
+    <div class="section-title">Pipeline Snapshot</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th class="num">Total Value</th>
+          <th class="num">Weighted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Lead</td><td class="num">$0</td><td class="num">$0</td></tr>
+        <tr><td>Discovery</td><td class="num">$0</td><td class="num">$0</td></tr>
+        <tr><td>Proposal</td><td class="num">$0</td><td class="num">$0</td></tr>
+        <tr><td>Negotiation</td><td class="num">$0</td><td class="num">$0</td></tr>
+        <tr><td>Verbal Yes</td><td class="num">$0</td><td class="num">$0</td></tr>
+        <tr><td class="won">Won</td><td class="num won">$2,000</td><td class="num won">$2,000</td></tr>
+        <tr><td>Lost</td><td class="num">$0</td><td class="num">$0</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Monthly Revenue Chart -->
+<div class="card">
+  <div class="section-title">Monthly Revenue — Invoiced vs Cash Received (2026)</div>
+  <div class="chart-wrap">
+    <!-- Max value is $2,000 — bars are % of 2000 -->
+    <div class="chart-row">
+      <span class="chart-label">Jan</span>
+      <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+      <span class="chart-val">$0</span>
+      <div class="bar-track"><div class="bar-fill green" style="width:0%"></div></div>
+      <span class="chart-val">$0</span>
+    </div>
+    <div class="chart-row">
+      <span class="chart-label">Feb</span>
+      <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+      <span class="chart-val">$2,000</span>
+      <div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div>
+      <span class="chart-val">$2,000</span>
+    </div>
+    <div class="chart-row">
+      <span class="chart-label">Mar</span>
+      <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+      <span class="chart-val">$2,000</span>
+      <div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div>
+      <span class="chart-val">$2,000</span>
+    </div>
+    <div class="chart-row">
+      <span class="chart-label">Apr–Dec</span>
+      <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+      <span class="chart-val">$0</span>
+      <div class="bar-track"><div class="bar-fill green" style="width:0%"></div></div>
+      <span class="chart-val">$0</span>
+    </div>
+  </div>
+  <div style="margin-top:0.75rem; font-size:0.7rem; color:#64748b;">
+    <span style="display:inline-block;width:10px;height:10px;background:#a78bfa;border-radius:2px;margin-right:4px;"></span>Invoiced &nbsp;
+    <span style="display:inline-block;width:10px;height:10px;background:#34d399;border-radius:2px;margin-right:4px;"></span>Cash Received
+  </div>
+</div>
+
+<footer>Generated by Claude Code · Arquentix Financial Operating System 2026</footer>
+
+</body>
+</html>
